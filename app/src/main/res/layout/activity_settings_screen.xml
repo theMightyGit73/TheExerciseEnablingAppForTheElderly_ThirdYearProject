@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Username EditText -->
+    <EditText
+        android:id="@+id/username_text"
+        android:layout_width="269dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="32dp"
+        android:inputType="textPersonName"
+        android:text="username"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Change Password EditText -->
+    <EditText
+        android:id="@+id/password_text"
+        android:layout_width="273dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="16dp"
+        android:inputType="textPassword"
+        android:text="password"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username_text" />
+
+    <!-- Email EditText -->
+    <EditText
+        android:id="@+id/email_text"
+        android:layout_width="271dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="16dp"
+        android:inputType="textEmailAddress"
+        android:text="email"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_text" />
+
+    <!-- Weight EditText -->
+    <EditText
+        android:id="@+id/weight_text"
+        android:layout_width="275dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="16dp"
+        android:inputType="numberDecimal"
+        android:text="weight"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_text" />
+
+    <!-- Height EditText -->
+    <EditText
+        android:id="@+id/height_text"
+        android:layout_width="278dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="16dp"
+        android:inputType="numberDecimal"
+        android:text="height"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weight_text" />
+
+    <!-- Save Button -->
+
+    <!-- Logout Button -->
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="193dp"
+        android:layout_height="55dp"
+        android:text="Save"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="109dp"
+        tools:layout_editor_absoluteY="440dp" />
+
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="190dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="196dp"
+        android:text="Logout"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/save_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

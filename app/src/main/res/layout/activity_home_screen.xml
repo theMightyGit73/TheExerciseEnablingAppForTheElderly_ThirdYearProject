@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- App name TextView -->
+    <TextView
+        android:id="@+id/appname_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Silver Strength"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Username TextView -->
+    <TextView
+        android:id="@+id/username_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appname_text" />
+
+    <!-- Settings Button -->
+    <Button
+        android:id="@+id/settings_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="Settings"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appname_text" />
+
+    <!-- Weather Button -->
+
+    <!-- Calendar Button -->
+    <Button
+        android:id="@+id/weather_button"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:text="Weather"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="236dp" />
+
+    <!-- Step Counter Button -->
+    <Button
+        android:id="@+id/calendar_button"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Calendar"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/weather_button"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/stepcounter_button"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Step Counter"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/calendar_button"
+        tools:layout_editor_absoluteX="0dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

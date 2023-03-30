@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">TheExerciseEnablingAppForTheElderly_ThirdYearProject</string>
+
+    <string name="weight_label">Weight:</string>
+    <string-array name="weight_units">
+        <item>Kilograms (kg)</item>
+        <item>Pounds (lbs)</item>
+    </string-array>
+    <string name="select_weight_unit_prompt">Select Weight Unit</string>
+
+    <string name="height_label">Height:</string>
+    <string-array name="height_units">
+        <item>Meters (m)</item>
+        <item>Foot (ft)</item>
+    </string-array>
+    <string name="select_height_unit_prompt">Select Height Unit</string>
+
+</resources>
