@@ -6,74 +6,157 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/create_username_text"
-        android:layout_width="212dp"
-        android:layout_height="42dp"
-        android:text="Create Your Username :"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="340dp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/username_layout"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="487dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/username_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Username Here"
-            android:textAlignment="center"
-            android:textStyle="italic" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/enter_email_text"
-        android:layout_width="247dp"
-        android:layout_height="48dp"
-        android:text="Enter Your Email Below : "
-        android:textAlignment="center"
-        android:textSize="20sp"
-        tools:layout_editor_absoluteX="82dp"
-        tools:layout_editor_absoluteY="96dp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/email_layout"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="209dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/email_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="JoeBloggs123@gmail.com"
-            android:textStyle="italic" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/enter_password_text"
-        android:layout_width="203dp"
-        android:layout_height="43dp"
-        android:text="Enter A Password :"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="104dp"
-        tools:layout_editor_absoluteY="627dp" />
-
-    <EditText
-        android:id="@+id/password_input"
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        tools:layout_editor_absoluteX="101dp"
-        tools:layout_editor_absoluteY="723dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/create_username_text"
+                android:layout_width="212dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="28dp"
+                android:text="Create Your Username :"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email_layout" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username_layout"
+                android:layout_width="239dp"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/create_username_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/username_input"
+                    android:layout_width="246dp"
+                    android:layout_height="63dp"
+                    android:hint="Enter Username Here"
+                    android:textAlignment="center"
+                    android:textStyle="italic" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/enter_email_text"
+                android:layout_width="247dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="92dp"
+                android:text="Enter Your Email Below : "
+                android:textAlignment="center"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.39"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_layout"
+
+                android:layout_width="246dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/enter_email_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter your email here"
+                    android:textStyle="italic" />
+
+                <Button
+                    android:id="@+id/verify_email_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:text="Verify Email"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintTop_toBottomOf="@+id/confirm_password_input"
+                    app:layout_constraintVertical_bias="1.0" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/enter_password_text"
+                android:layout_width="203dp"
+                android:layout_height="43dp"
+                android:layout_marginTop="28dp"
+                android:text="Enter A Password :"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/username_layout" />
+
+            <EditText
+                android:id="@+id/password_input"
+                android:layout_width="244dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/enter_password_text" />
+
+
+            <TextView
+                android:id="@+id/confirm_password_text"
+                android:layout_width="203dp"
+                android:layout_height="43dp"
+                android:layout_marginTop="28dp"
+                android:text="Confirm Password :"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_input" />
+
+            <EditText
+                android:id="@+id/confirm_password_input"
+                android:layout_width="244dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/confirm_password_text" />
+
+            <Button
+                android:id="@+id/saveButton_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/confirm_password_input"
+                app:layout_constraintVertical_bias="1.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

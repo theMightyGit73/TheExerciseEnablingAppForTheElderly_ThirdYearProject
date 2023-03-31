@@ -66,13 +66,23 @@ public class FindDetailsActivity extends AppCompatActivity {
             return;
         }
 
+        // Create a new User object with the details and add it to the database
+        User user = new User();
+        user.setBirthdate(String.format("%02d/%02d/%d", birthDay, birthMonth, birthYear));
+        user.setGender(gender);
+        user.setWeight(weight);
+        user.setHeight(height);
+
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        databaseHelper.updateUser(user);
+
         // Save details in SharedPreferences
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("birthdate", String.format("%02d/%02d/%d", birthDay, birthMonth, birthYear));
-        editor.putString("gender", gender);
-        editor.putFloat("weight", weight);
-        editor.putFloat("height", height);
+        editor.putString("birthdate", user.getBirthdate());
+        editor.putString("gender", user.getGender());
+        editor.putFloat("weight", user.getWeight());
+        editor.putFloat("height", user.getHeight());
         editor.apply();
 
         // Start the MainActivity and finish this activity
@@ -81,3 +91,4 @@ public class FindDetailsActivity extends AppCompatActivity {
     }
 
 }
+

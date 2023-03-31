@@ -11,15 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
 public class HomeActivity extends AppCompatActivity {
 
     private TextView usernameText;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        // Get the saved username from the Intent extras
-        Intent intent = getIntent();
-        String username = intent.getStringExtra("USERNAME");
+        dbHelper = new DatabaseHelper(this);
+
+        // Get the saved username from the database using the getLoggedInUser method of dbHelper
+        String username = dbHelper.getLoggedInUser().getName();
 
         // Get references to UI elements
         usernameText = findViewById(R.id.username_text);
@@ -43,24 +45,24 @@ public class HomeActivity extends AppCompatActivity {
         weatherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, WeatherActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(HomeActivity.this, WeatherActivity.class);
+//                startActivity(intent);
             }
         });
 
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, CalendarActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(HomeActivity.this, CalendarActivity.class);
+//                startActivity(intent);
             }
         });
 
         stepCounterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, StepCounterActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(HomeActivity.this, StepCounterActivity.class);
+//                startActivity(intent);
             }
         });
     }

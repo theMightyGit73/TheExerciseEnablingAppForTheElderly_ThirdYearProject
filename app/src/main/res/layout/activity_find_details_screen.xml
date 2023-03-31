@@ -14,205 +14,233 @@
     <!-- RadioGroup for selecting the gender -->
 
     <!-- Button to save the inputs -->
-
-    <TextView
-        android:id="@+id/enter_birthdate_text"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Enter Your Birthdate Below:"
-        android:textColor="@color/text_color"
-        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/enter_birthdate_text"
-        tools:layout_editor_absoluteX="0dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
 
-        <DatePicker
-            android:id="@+id/birthdate_picked"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/datepicker_background_color"
-            android:calendarViewShown="false"
-            android:datePickerMode="spinner"
-            android:endYear="2023"
-            android:startYear="1900"
-            android:textColor="@color/datepicker_text_color" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/enter_birthdate_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="Enter Your Birthdate Below:"
+                android:textColor="@color/text_color"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ScrollView
+                android:id="@+id/scrollView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/enter_birthdate_text">
+
+                <DatePicker
+                    android:id="@+id/birthdate_picked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/datepicker_background_color"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="spinner"
+                    android:endYear="2023"
+                    android:startYear="1900"
+                    android:textColor="@color/datepicker_text_color" />
+
+            </ScrollView>
+
+            <TextView
+                android:id="@+id/select_gender_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Select Your Gender Below:"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+                tools:ignore="NotSibling" />
+
+            <RadioGroup
+                android:id="@+id/gender_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/select_gender_text"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/select_gender_text">
+
+                <!-- RadioButton for selecting male gender -->
+                <RadioButton
+                    android:id="@+id/male_radio_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:padding="8dp"
+                    android:text="Male"
+                    android:textColor="#000000" />
+
+                <!-- RadioButton for selecting female gender -->
+                <RadioButton
+                    android:id="@+id/female_radio_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Female"
+                    android:textColor="#000000" />
+
+            </RadioGroup>
+
+            <!-- Save button -->
+
+            <TextView
+                android:id="@+id/enter_weight_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/gender_radio_group"
+                android:layout_marginTop="16dp"
+                android:text="Enter Your Weight Below:"
+                android:textAlignment="center"
+
+                android:textColor="@color/text_color"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gender_radio_group" />
+
+            <LinearLayout
+                android:id="@+id/weight_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/enter_weight_text"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/enter_weight_text"
+                tools:layout_editor_absoluteX="-106dp">
+
+                <TextView
+                    android:id="@+id/weight_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingStart="8dp"
+                    android:text="@string/weight_label"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/weight_input"
+                    android:layout_width="187dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/weight_unit_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:entries="@array/weight_units"
+                    android:paddingEnd="8dp"
+                    android:prompt="@string/select_weight_unit_prompt"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/enter_height_text"
+                android:layout_width="404dp"
+                android:layout_height="59dp"
+                android:layout_marginTop="4dp"
+                android:text="Enter Your Height Below:"
+                android:textAlignment="center"
+                android:textColor="@color/text_color"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/weight_linear_layout" />
+
+            <LinearLayout
+                android:id="@+id/height_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/enter_height_text"
+                tools:layout_editor_absoluteX="50dp">
+
+                <TextView
+                    android:id="@+id/height_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/height_label"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/height_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/height_unit_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:entries="@array/height_units"
+                    android:paddingEnd="8dp"
+                    android:prompt="@string/select_height_unit_prompt"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Save"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/height_linear_layout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-
-    <TextView
-        android:id="@+id/select_gender_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Select Your Gender Below:"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        tools:ignore="NotSibling"
-        tools:layout_editor_absoluteX="65dp" />
-
-    <RadioGroup
-        android:id="@+id/gender_radio_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/select_gender_text"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/select_gender_text"
-        tools:layout_editor_absoluteX="119dp">
-
-        <!-- RadioButton for selecting male gender -->
-        <RadioButton
-            android:id="@+id/male_radio_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:padding="8dp"
-            android:text="Male"
-            android:textColor="#000000" />
-
-        <!-- RadioButton for selecting female gender -->
-        <RadioButton
-            android:id="@+id/female_radio_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="Female"
-            android:textColor="#000000" />
-
-    </RadioGroup>
-
-    <!-- Save button -->
-
-    <TextView
-        android:id="@+id/enter_weight_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/gender_radio_group"
-        android:layout_marginTop="100dp"
-        android:text="Enter Your Weight Below:"
-        android:textAlignment="center"
-        android:textColor="@color/text_color"
-        android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@+id/gender_radio_group"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <LinearLayout
-        android:id="@+id/weight_linear_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/enter_weight_text"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/enter_weight_text"
-        tools:layout_editor_absoluteX="-106dp">
-
-        <TextView
-            android:id="@+id/weight_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingStart="8dp"
-            android:text="@string/weight_label"
-            android:textColor="@color/text_color"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/weight_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:inputType="numberDecimal"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textColor="@color/text_color"
-            android:textSize="18sp" />
-
-        <Spinner
-            android:id="@+id/weight_unit_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:entries="@array/weight_units"
-            android:paddingEnd="8dp"
-            android:prompt="@string/select_weight_unit_prompt"
-            android:textColor="@color/text_color"
-            android:textSize="18sp" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/enter_height_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="Enter Your Height Below:"
-        android:textAlignment="center"
-        android:textColor="@color/text_color"
-        android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@+id/weight_linear_layout"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <LinearLayout
-        android:id="@+id/height_linear_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/enter_height_text"
-        tools:layout_editor_absoluteX="50dp">
-
-        <TextView
-            android:id="@+id/height_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/height_label"
-            android:textColor="@color/text_color"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/height_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:inputType="numberDecimal"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textColor="@color/text_color"
-            android:textSize="18sp" />
-
-        <Spinner
-            android:id="@+id/height_unit_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:entries="@array/height_units"
-            android:paddingEnd="8dp"
-            android:prompt="@string/select_height_unit_prompt"
-            android:textColor="@color/text_color"
-            android:textSize="18sp" />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/save_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="Save"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/height_linear_layout"
-        tools:layout_editor_absoluteX="16dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
