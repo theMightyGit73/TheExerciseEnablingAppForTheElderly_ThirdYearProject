@@ -121,7 +121,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     }
 
-    private void sendEmailVerification(String email) {
+    private void sendEmailVerification(String emailToVerify) {
         // Generate a random verification code
         String verificationCode = generateVerificationCode();
 
@@ -134,15 +134,19 @@ public class CreateAccountActivity extends AppCompatActivity {
                 + verificationCode + "'>Verify Email</a>";
 
         // Create an intent to send the email
-        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", email, null));
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", emailToVerify, null));
 
         // Add the email subject and message to the intent
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
         emailIntent.putExtra(Intent.EXTRA_TEXT, message);
 
+        // Set the email message type to text/html
+        emailIntent.setType("text/html");
+
         // Start an activity to allow the user to choose an email client to send the email
         startActivityForResult(Intent.createChooser(emailIntent, "Send email..."), EMAIL_VERIFICATION_REQUEST_CODE);
     }
+
 
     // This method will be called after the user has clicked the email verification link
     @Override

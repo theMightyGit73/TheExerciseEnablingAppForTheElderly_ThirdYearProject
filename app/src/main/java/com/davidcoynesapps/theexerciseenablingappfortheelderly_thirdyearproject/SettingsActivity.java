@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -21,6 +22,7 @@ public class SettingsActivity extends AppCompatActivity {
     private EditText mHeightEditText;
     private Button mSaveButton;
     private Button mLogoutButton;
+    private ImageButton mBackButton;
     private String mUsername;
     private DatabaseHelper mDbHelper;
 
@@ -33,10 +35,11 @@ public class SettingsActivity extends AppCompatActivity {
         mUsernameEditText = findViewById(R.id.username_text);
         mPasswordEditText = findViewById(R.id.password_text);
         mEmailEditText = findViewById(R.id.email_text);
-        mWeightEditText = findViewById(R.id.weight_text);
-        mHeightEditText = findViewById(R.id.height_text);
+        mWeightEditText = findViewById(R.id.weight_input);
+        mHeightEditText = findViewById(R.id.height_input);
         mSaveButton = findViewById(R.id.save_button);
         mLogoutButton = findViewById(R.id.logout_button);
+        mBackButton = findViewById(R.id.backButton);
 
         mDbHelper = new DatabaseHelper(this);
 
@@ -54,6 +57,13 @@ public class SettingsActivity extends AppCompatActivity {
         mWeightEditText.setText(String.valueOf(user.getWeight()));
         mHeightEditText.setText(String.valueOf(user.getHeight()));
 
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Add an OnClickListener to the mPasswordEditText to prompt the user to enter their old password
         mPasswordEditText.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +152,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 SharedPreferences preferences = getSharedPreferences("my_preferences", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = preferences.edit();
                                 editor.clear();
+                                editor.putBoolean("has_seen_welcome_screen", false); // clear the has_seen_welcome_screen preference
                                 editor.apply();
 
                                 Intent intent = new Intent(SettingsActivity.this, WelcomeActivity.class);
