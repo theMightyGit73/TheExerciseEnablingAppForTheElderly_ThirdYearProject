@@ -9,6 +9,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,8 @@ public class FindDetailsActivity extends AppCompatActivity {
 
     private EditText weightEditText;
     private EditText heightEditText;
+    private Spinner weightUnitSpinner;
+    private Spinner heightUnitSpinner;
     private DatePicker birthdateDatePicker;
     private RadioGroup genderRadioGroup;
 
@@ -29,6 +32,8 @@ public class FindDetailsActivity extends AppCompatActivity {
 
         weightEditText = findViewById(R.id.weight_input);
         heightEditText = findViewById(R.id.height_input);
+        weightUnitSpinner = findViewById(R.id.weight_unit_spinner);
+        heightUnitSpinner = findViewById(R.id.height_unit_spinner);
         birthdateDatePicker = findViewById(R.id.birthdate_picked);
         genderRadioGroup = findViewById(R.id.gender_radio_group);
 
@@ -47,13 +52,15 @@ public class FindDetailsActivity extends AppCompatActivity {
 
     private void saveDetails() {
         String weightString = weightEditText.getText().toString();
+        String weightUnitString = weightUnitSpinner.getSelectedItem().toString();
         String heightString = heightEditText.getText().toString();
+        String heightUnitString = heightUnitSpinner.getSelectedItem().toString();
         int birthYear = birthdateDatePicker.getYear();
         int birthMonth = birthdateDatePicker.getMonth() + 1; // Add 1 because months are 0-indexed
         int birthDay = birthdateDatePicker.getDayOfMonth();
         String gender = ((RadioButton)findViewById(genderRadioGroup.getCheckedRadioButtonId())).getText().toString();
 
-        if (weightString.isEmpty() || heightString.isEmpty() || gender.isEmpty()) {
+        if (weightString.isEmpty() || weightUnitString.isEmpty() || heightString.isEmpty() || heightUnitString.isEmpty() || gender.isEmpty()) {
             Toast.makeText(this, "Please fill in all the details", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -71,7 +78,9 @@ public class FindDetailsActivity extends AppCompatActivity {
         user.setBirthdate(String.format("%02d/%02d/%d", birthDay, birthMonth, birthYear));
         user.setGender(gender);
         user.setWeight(weight);
+        user.setWeightUnits(weightUnitString);
         user.setHeight(height);
+        user.setHeightUnits(heightUnitString);
 
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         databaseHelper.updateUser(user);
@@ -82,8 +91,11 @@ public class FindDetailsActivity extends AppCompatActivity {
         editor.putString("birthdate", user.getBirthdate());
         editor.putString("gender", user.getGender());
         editor.putFloat("weight", user.getWeight());
+        editor.putString("weight_units", user.getWeightUnits());
         editor.putFloat("height", user.getHeight());
+        editor.putString("height_units", user.getHeightUnits());
         editor.apply();
+
 
         // Start the MainActivity and finish this activity
         startActivity(new Intent(this, HomeActivity.class));

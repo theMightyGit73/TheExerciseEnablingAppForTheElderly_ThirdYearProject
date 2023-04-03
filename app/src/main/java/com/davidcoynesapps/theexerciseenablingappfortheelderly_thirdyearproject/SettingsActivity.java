@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -20,11 +23,37 @@ public class SettingsActivity extends AppCompatActivity {
     private EditText mEmailEditText;
     private EditText mWeightEditText;
     private EditText mHeightEditText;
+    private Spinner mWeightUnitSpinner;
+    private Spinner mHeightUnitSpinner;
     private Button mSaveButton;
     private Button mLogoutButton;
     private ImageButton mBackButton;
     private String mUsername;
     private DatabaseHelper mDbHelper;
+    private float mWeight;
+    private float mHeight;
+    private int mWeightUnitIndex;
+    private int mHeightUnitIndex;
+
+    private void setWeightAndHeightFieldsBasedOnUnits() {
+        String[] weightUnits = getResources().getStringArray(R.array.weight_units);
+        String[] heightUnits = getResources().getStringArray(R.array.height_units);
+        double weight;
+        double height;
+        if (mWeightUnitIndex == 0) { // kg to pounds
+            weight = mWeight * 2.20462;
+        } else { // lbs to kg
+            weight = mWeight * 0.453592;
+        }
+        if (mHeightUnitIndex == 0) { // m to feet
+            height = mHeight * 3.28084;
+        } else { // ft to m
+            height = mHeight * 0.3048;
+        }
+        mWeightEditText.setText(String.format("%.1f", weight));
+        mHeightEditText.setText(String.format("%.2f", height));
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +66,8 @@ public class SettingsActivity extends AppCompatActivity {
         mEmailEditText = findViewById(R.id.email_text);
         mWeightEditText = findViewById(R.id.weight_input);
         mHeightEditText = findViewById(R.id.height_input);
+        mWeightUnitSpinner = findViewById(R.id.weight_unit_spinner);
+        mHeightUnitSpinner = findViewById(R.id.height_unit_spinner);
         mSaveButton = findViewById(R.id.save_button);
         mLogoutButton = findViewById(R.id.logout_button);
         mBackButton = findViewById(R.id.backButton);
@@ -56,6 +87,60 @@ public class SettingsActivity extends AppCompatActivity {
         mEmailEditText.setText(user.getEmail());
         mWeightEditText.setText(String.valueOf(user.getWeight()));
         mHeightEditText.setText(String.valueOf(user.getHeight()));
+
+        // Set the initial values of the unit spinners
+        ArrayAdapter<CharSequence> weightUnitAdapter = ArrayAdapter.createFromResource(this, R.array.weight_units, android.R.layout.simple_spinner_item);
+        weightUnitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mWeightUnitSpinner.setAdapter(weightUnitAdapter);
+        String[] weightUnits = getResources().getStringArray(R.array.weight_units);
+        for (int i = 0; i < weightUnits.length; i++) {
+            if (weightUnits[i].equalsIgnoreCase(user.getWeightUnits())) {
+                mWeightUnitSpinner.setSelection(i);
+                mWeightUnitIndex = i;
+                break;
+            }
+        }
+
+        ArrayAdapter<CharSequence> heightUnitAdapter = ArrayAdapter.createFromResource(this, R.array.height_units, android.R.layout.simple_spinner_item);
+        heightUnitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mHeightUnitSpinner.setAdapter(heightUnitAdapter);
+        String[] heightUnits = getResources().getStringArray(R.array.height_units);
+        for (int i = 0; i < heightUnits.length; i++) {
+            if (heightUnits[i].equalsIgnoreCase(user.getHeightUnits())) {
+                mHeightUnitSpinner.setSelection(i);
+                mHeightUnitIndex = i;
+                break;
+            }
+        }
+
+        // Set weight and height values based on selected unit
+        mWeight = user.getWeight();
+        mHeight = user.getHeight();
+
+        // Set up listeners
+        mWeightUnitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                mWeightUnitIndex = i;
+                setWeightAndHeightFieldsBasedOnUnits();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // Do nothing
+            }
+        });
+
+        mHeightUnitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                mHeightUnitIndex = i;
+                setWeightAndHeightFieldsBasedOnUnits();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // Do nothing
+            }
+        });
 
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,20 +202,42 @@ public class SettingsActivity extends AppCompatActivity {
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the new values from the EditTexts
-                String newUsername = mUsernameEditText.getText().toString();
-                String newPassword = mPasswordEditText.getText().toString();
-                String newEmail = mEmailEditText.getText().toString();
-                String newWeight = mWeightEditText.getText().toString();
-                String newHeight = mHeightEditText.getText().toString();
+                // Get the new user details
+                String username = mUsernameEditText.getText().toString().trim();
+                String password = mPasswordEditText.getText().toString().trim();
+                String email = mEmailEditText.getText().toString().trim();
+                String weightStr = mWeightEditText.getText().toString().trim();
+                String heightStr = mHeightEditText.getText().toString().trim();
 
-                // Update the user's details in the database
+                // Get the selected weight and height units
+                String weightUnit = mWeightUnitSpinner.getSelectedItem().toString();
+                String heightUnit = mHeightUnitSpinner.getSelectedItem().toString();
+
+                // Validate the user details
+                if (username.isEmpty() || password.isEmpty() || email.isEmpty() || weightStr.isEmpty() || heightStr.isEmpty()) {
+                    Toast.makeText(SettingsActivity.this, "Please fill in all the fields", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                float weight;
+                float height;
+                try {
+                    weight = Float.parseFloat(weightStr);
+                    height = Float.parseFloat(heightStr);
+                } catch (NumberFormatException e) {
+                    Toast.makeText(SettingsActivity.this, "Please enter valid values for weight and height", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                /// Update the user's details in the database
                 User updatedUser = new User();
-                updatedUser.setName(newUsername);
-                updatedUser.setPassword(newPassword);
-                updatedUser.setEmail(newEmail);
-                updatedUser.setWeight(Integer.parseInt(newWeight));
-                updatedUser.setHeight(Integer.parseInt(newHeight));
+                updatedUser.setName(username);
+                updatedUser.setPassword(password);
+                updatedUser.setEmail(email);
+                updatedUser.setWeight(weight);
+                updatedUser.setWeightUnits(weightUnit);
+                updatedUser.setHeight(height);
+                updatedUser.setHeightUnits(heightUnit);
 
                 mDbHelper.updateUser(updatedUser);
 
@@ -170,6 +277,8 @@ public class SettingsActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+
 
     }
 }

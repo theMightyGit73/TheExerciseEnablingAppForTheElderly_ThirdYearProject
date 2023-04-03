@@ -8,7 +8,9 @@ public class User {
     private String birthdate;
     private String gender;
     private float weight;
+    private String weightUnit;
     private float height;
+    private String heightUnit;
     private float caloriesBurnt;
     private float distance;
     private int steps;
@@ -99,6 +101,14 @@ public class User {
         this.height = height;
     }
 
+    public String getWeightUnits() {return weightUnit;}
+
+    public String getHeightUnits() {return heightUnit;}
+
+    public void setWeightUnits(String weightUnitString) {weightUnit = weightUnitString;}
+
+    public void setHeightUnits(String heightUnitString) {heightUnit = heightUnitString;}
+
     public float getCaloriesBurnt() {
         return caloriesBurnt;
     }
@@ -135,7 +145,6 @@ public class User {
         return exerciseDuration;
     }
 
-    public void setExerciseDuration(int exerciseDuration) {
-        this.exerciseDuration = exerciseDuration;
-    }
+    public void setExerciseDuration(int exerciseDuration) {this.exerciseDuration = exerciseDuration;}
+
 }

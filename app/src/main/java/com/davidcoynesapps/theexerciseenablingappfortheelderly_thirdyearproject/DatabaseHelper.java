@@ -25,6 +25,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_GENDER = "gender";
     private static final String COLUMN_WEIGHT = "weight";
     private static final String COLUMN_HEIGHT = "height";
+    private static final String COLUMN_WEIGHT_UNIT = "weight_unit";
+    private static final String COLUMN_HEIGHT_UNIT = "height_unit";
     private static final String COLUMN_CALORIES_BURNT = "calories_burnt";
     private static final String COLUMN_DISTANCE = "distance";
     private static final String COLUMN_STEPS = "steps";
@@ -51,7 +53,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_BIRTHDATE + " TEXT, " +
                 COLUMN_GENDER + " TEXT, " +
                 COLUMN_WEIGHT + " REAL, " +
+                COLUMN_WEIGHT_UNIT + " TEXT, " +
                 COLUMN_HEIGHT + " REAL, " +
+                COLUMN_HEIGHT_UNIT + " TEXT, " +
                 COLUMN_CALORIES_BURNT + " REAL, " +
                 COLUMN_DISTANCE + " REAL, " +
                 COLUMN_STEPS + " INTEGER, " +
@@ -77,7 +81,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_BIRTHDATE, user.getBirthdate());
         values.put(COLUMN_GENDER, user.getGender());
         values.put(COLUMN_WEIGHT, user.getWeight());
+        values.put(COLUMN_WEIGHT_UNIT, user.getWeightUnits());
         values.put(COLUMN_HEIGHT, user.getHeight());
+        values.put(COLUMN_HEIGHT_UNIT, user.getHeightUnits());
         values.put(COLUMN_CALORIES_BURNT, user.getCaloriesBurnt());
         values.put(COLUMN_DISTANCE, user.getDistance());
         values.put(COLUMN_STEPS, user.getSteps());
@@ -125,7 +131,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     user.setBirthdate(cursor.getString(cursor.getColumnIndex(COLUMN_BIRTHDATE)));
                     user.setGender(cursor.getString(cursor.getColumnIndex(COLUMN_GENDER)));
                     user.setWeight(cursor.getFloat(cursor.getColumnIndex(COLUMN_WEIGHT)));
+                    user.setWeightUnits(cursor.getString(cursor.getColumnIndex(COLUMN_WEIGHT_UNIT)));
                     user.setHeight(cursor.getFloat(cursor.getColumnIndex(COLUMN_HEIGHT)));
+                    user.setHeightUnits(cursor.getString(cursor.getColumnIndex(COLUMN_HEIGHT_UNIT)));
                     user.setCaloriesBurnt(cursor.getFloat(cursor.getColumnIndex(COLUMN_CALORIES_BURNT)));
                     user.setDistance(cursor.getFloat(cursor.getColumnIndex(COLUMN_DISTANCE)));
                     user.setSteps(cursor.getInt(cursor.getColumnIndex(COLUMN_STEPS)));
@@ -167,7 +175,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_BIRTHDATE, user.getBirthdate());
         values.put(COLUMN_GENDER, user.getGender());
         values.put(COLUMN_WEIGHT, user.getWeight());
+        values.put(COLUMN_WEIGHT_UNIT, user.getWeightUnits());
         values.put(COLUMN_HEIGHT, user.getHeight());
+        values.put(COLUMN_HEIGHT_UNIT, user.getHeightUnits());
         values.put(COLUMN_CALORIES_BURNT, user.getCaloriesBurnt());
         values.put(COLUMN_DISTANCE, user.getDistance());
         values.put(COLUMN_STEPS, user.getSteps());
