@@ -18,7 +18,7 @@ public class User {
     private int exerciseDuration;
 
     public User(int id, String name, String email, String password, String birthdate, String gender,
-                float weight, float height, float caloriesBurnt, float distance, int steps,
+                float weight, String weightUnit, float height, String heightUnit, float caloriesBurnt, float distance, int steps,
                 String exercise, int exerciseDuration) {
         this.id = id;
         this.name = name;
@@ -27,7 +27,9 @@ public class User {
         this.birthdate = birthdate;
         this.gender = gender;
         this.weight = weight;
+        this.weightUnit = weightUnit;
         this.height = height;
+        this.heightUnit = heightUnit;
         this.caloriesBurnt = caloriesBurnt;
         this.distance = distance;
         this.steps = steps;

@@ -15,7 +15,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="808dp"
+            android:layout_height="match_parent"
             tools:layout_editor_absoluteY="1dp">
 
 <!--            &lt;!&ndash;               app:layout_constraintEnd_toStartOf="@id/username_label"&ndash;&gt;<![CDATA[-->
