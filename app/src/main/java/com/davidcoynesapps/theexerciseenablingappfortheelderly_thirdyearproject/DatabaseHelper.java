@@ -1,6 +1,5 @@
 package com.davidcoynesapps.theexerciseenablingappfortheelderly_thirdyearproject;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -107,61 +106,136 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return userExists;
     }
 
-    @SuppressLint("Range")
-    public User getLoggedInUser() {
-        SQLiteDatabase db = null;
+    public User getLoggedInUser() throws IllegalStateException, SQLiteException {
         User user = null;
 
+        // Check if a valid Context was provided to the DatabaseHelper constructor
+        if (context == null) {
+            throw new IllegalStateException("Cannot retrieve logged-in user without a valid Context");
+        }
+
+        // Get the ID of the logged-in user from the app's state
+        SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        int loggedInUserId = prefs.getInt("loggedInUserId", -1);
+
+        // If no user is currently logged in, return null
+        if (loggedInUserId < 0) {
+            return null;
+        }
+
+        // Query the database to retrieve the user with the specified ID
+    SQLiteDatabase db = null;
+    Cursor cursor = null;
         try {
-            db = this.getReadableDatabase();
-
-            // get the ID of the logged-in user from the app's state
-            SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-            int loggedInUserId = prefs.getInt("loggedInUserId", -1);
-
-            if (loggedInUserId > -1) {
-                // query the users table to retrieve the user with the specified ID
-                Cursor cursor = db.query(TABLE_NAME, null, COLUMN_ID + "=?", new String[]{String.valueOf(loggedInUserId)}, null, null, null);
-                if (cursor.moveToFirst()) {
-                    user = new User();
-                    user.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
-                    user.setName(cursor.getString(cursor.getColumnIndex(COLUMN_NAME)));
-                    user.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL)));
-                    user.setPassword(cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD)));
-                    user.setBirthdate(cursor.getString(cursor.getColumnIndex(COLUMN_BIRTHDATE)));
-                    user.setGender(cursor.getString(cursor.getColumnIndex(COLUMN_GENDER)));
-                    user.setWeight(cursor.getFloat(cursor.getColumnIndex(COLUMN_WEIGHT)));
-                    user.setWeightUnits(cursor.getString(cursor.getColumnIndex(COLUMN_WEIGHT_UNIT)));
-                    user.setHeight(cursor.getFloat(cursor.getColumnIndex(COLUMN_HEIGHT)));
-                    user.setHeightUnits(cursor.getString(cursor.getColumnIndex(COLUMN_HEIGHT_UNIT)));
-                    user.setCaloriesBurnt(cursor.getFloat(cursor.getColumnIndex(COLUMN_CALORIES_BURNT)));
-                    user.setDistance(cursor.getFloat(cursor.getColumnIndex(COLUMN_DISTANCE)));
-                    user.setSteps(cursor.getInt(cursor.getColumnIndex(COLUMN_STEPS)));
-                    user.setExercise(cursor.getString(cursor.getColumnIndex(COLUMN_EXERCISE)));
-                    user.setExerciseDuration(cursor.getInt(cursor.getColumnIndex(COLUMN_EXERCISE_DURATION)));
-                }
-                cursor.close();
-
-                if (user == null) {
-                    Log.e(TAG, "No user found with ID " + loggedInUserId);
-                    // Return a default user object if no user is found
-                    user = new User();
-                    user.setId(loggedInUserId);
-                }
+        db = this.getReadableDatabase();
+        cursor = db.query(TABLE_NAME, null, COLUMN_ID + "=?", new String[]{String.valueOf(loggedInUserId)}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            user = new User();
+            int columnIndex;
+            columnIndex = cursor.getColumnIndex(COLUMN_ID);
+            if (columnIndex >= 0) {
+                user.setId(cursor.getInt(columnIndex));
             } else {
-                Log.e(TAG, "Invalid user ID: " + loggedInUserId);
-                // Return a default user object if the user ID is invalid or not set
-                user = new User();
+                Log.e(TAG, "Column not found: " + COLUMN_ID);
             }
-        } catch (SQLiteException e) {
-            Log.e(TAG, "Error retrieving logged in user", e);
-        } finally {
-            if (db != null) {
-                db.close();
+            columnIndex = cursor.getColumnIndex(COLUMN_NAME);
+            if (columnIndex >= 0) {
+                user.setName(cursor.getString(columnIndex));
+            } else {
+                Log.e(TAG, "Column not found: " + COLUMN_NAME);
+            }
+            columnIndex = cursor.getColumnIndex(COLUMN_EMAIL);
+            if (columnIndex >= 0) {
+                user.setEmail(cursor.getString(columnIndex));
+            } else {
+                Log.e(TAG, "Column not found: " + COLUMN_EMAIL);
+            }
+            columnIndex = cursor.getColumnIndex(COLUMN_PASSWORD);
+            if (columnIndex >= 0) {
+                user.setPassword(cursor.getString(columnIndex));
+            } else {
+                Log.e(TAG, "Column not found: " + COLUMN_PASSWORD);
+            }
+            columnIndex = cursor.getColumnIndex(COLUMN_BIRTHDATE);
+            if (columnIndex >= 0) {
+                user.setBirthdate(cursor.getString(columnIndex));
+            } else {
+                Log.e(TAG, "Column not found: " + COLUMN_BIRTHDATE);
+            }
+            columnIndex = cursor.getColumnIndex(COLUMN_GENDER);
+            if (columnIndex >= 0) {
+                user.setGender(cursor.getString(columnIndex));
+            } else {
+                Log.e(TAG, "Column not found: " + COLUMN_GENDER);
+            }
+            columnIndex = cursor.getColumnIndex(COLUMN_WEIGHT);
+            if (columnIndex >= 0) {
+                user.setWeight(cursor.getFloat(columnIndex));
+            } else {
+                Log.e(TAG, "Column not found: " + COLUMN_WEIGHT);
+            }
+            columnIndex = cursor.getColumnIndex(COLUMN_WEIGHT_UNIT);
+            if (columnIndex >= 0) {
+                user.setWeightUnits(cursor.getString(columnIndex));
+            } else {
+                Log.e(TAG, "Column not found: " + COLUMN_WEIGHT_UNIT);
+            }
+            columnIndex = cursor.getColumnIndex(COLUMN_HEIGHT);
+            if (columnIndex >= 0) {
+                user.setHeight(cursor.getFloat(columnIndex));
+            } else {
+                Log.e(TAG, "Column not found: " + COLUMN_HEIGHT);
+            }
+            columnIndex = cursor.getColumnIndex(COLUMN_HEIGHT_UNIT);
+            if (columnIndex >= 0) {
+                user.setHeightUnits(cursor.getString(columnIndex));
+            } else {
+                Log.e(TAG, "Column not found: " + COLUMN_HEIGHT_UNIT);
+            }
+            columnIndex = cursor.getColumnIndex(COLUMN_CALORIES_BURNT);
+            if (columnIndex >= 0) {
+                user.setCaloriesBurnt(cursor.getFloat(columnIndex));
+            } else {
+                Log.e(TAG, "Column not found: " + COLUMN_CALORIES_BURNT);
+            }
+            columnIndex = cursor.getColumnIndex(COLUMN_DISTANCE);
+            if (columnIndex >= 0) {
+                user.setDistance(cursor.getFloat(columnIndex));
+            } else {
+                Log.e(TAG, "Column not found: " + COLUMN_DISTANCE);
+            }
+            columnIndex = cursor.getColumnIndex(COLUMN_STEPS);
+            if (columnIndex >= 0) {
+                user.setSteps(cursor.getInt(columnIndex));
+            } else {
+                Log.e(TAG, "Column not found: " + COLUMN_STEPS);
+            }
+            columnIndex = cursor.getColumnIndex(COLUMN_EXERCISE);
+            if (columnIndex >= 0) {
+                user.setExercise(cursor.getString(columnIndex));
+            } else {
+                Log.e(TAG, "Column not found: " + COLUMN_EXERCISE);
+            }
+            columnIndex = cursor.getColumnIndex(COLUMN_EXERCISE_DURATION);
+            if (columnIndex >= 0) {
+                user.setExerciseDuration(cursor.getInt(columnIndex));
+            } else {
+                Log.e(TAG, "Column not found: " + COLUMN_EXERCISE_DURATION);
             }
         }
-        return user;
+    } catch (SQLiteException e) {
+        Log.e(TAG, "Error retrieving logged-in user from database", e);
+        throw e;
+    } finally {
+        if (cursor != null) {
+            cursor.close();
+        }
+        if (db != null) {
+            db.close();
+        }
     }
+        return user;
+}
 
 
 

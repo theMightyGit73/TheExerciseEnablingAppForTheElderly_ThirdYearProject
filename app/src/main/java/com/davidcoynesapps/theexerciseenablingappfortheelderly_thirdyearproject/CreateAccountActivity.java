@@ -169,8 +169,10 @@ public class CreateAccountActivity extends AppCompatActivity {
                 // Handle response from Sendinblue API
                 if (response.isSuccessful()) {
                     // Email sent successfully
+                    Toast.makeText(CreateAccountActivity.this, "enail sent", Toast.LENGTH_SHORT).show();
                 } else {
                     // Email sending failed
+                    Toast.makeText(CreateAccountActivity.this, "email didnt send", Toast.LENGTH_SHORT).show();
                 }
                 response.close();
             }
